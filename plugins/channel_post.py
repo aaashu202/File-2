@@ -42,7 +42,6 @@ async def channel_post(client: Client, message: Message):
 
     # Auto-delete the message after 10 seconds
     await asyncio.sleep(30)
-    try:
         await reply_text.delete()
         await post_message.delete()
     except Exception as e:
