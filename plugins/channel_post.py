@@ -13,7 +13,7 @@ from helper_func import encode
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Please Wait...!", quote = True)
     try:
-        l = post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
+        post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
     except FloodWait as e:
         await asyncio.sleep(e.value)
         post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
@@ -21,8 +21,7 @@ async def channel_post(client: Client, message: Message):
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
         return
-        await asyncio.sleep(20)
-        await l.delete()
+        
         
     converted_id = post_message.id * abs(client.db_channel.id)
     string = f"get-{converted_id}"
