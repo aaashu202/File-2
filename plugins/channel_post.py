@@ -1,14 +1,3 @@
-#(©)Codexbotz
-
-import asyncio
-from pyrogram import filters, Client
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from pyrogram.errors import FloodWait
-
-from bot import Bot
-from config import ADMINS, CHANNEL_ID, DISABLE_CHANNEL_BUTTON
-from helper_func import encode
-
 @Bot.on_message(filters.private & filters.user(ADMINS) & ~filters.command(['start','users','broadcast','batch','genlink','stats']))
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Please Wait...!", quote=True)
@@ -20,9 +9,6 @@ async def channel_post(client: Client, message: Message):
     except Exception as e:
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
-        await asyncio.sleep(30)
-       
-        await post_message.delete()
         return
 
     converted_id = post_message.id * abs(client.db_channel.id)
@@ -44,7 +30,8 @@ async def channel_post(client: Client, message: Message):
             pass
 
     # Auto-delete the message after 10 seconds
-    await asyncio.sleep(30)
+    await asyncio.sleep(10)
+    try:
         await reply_text.delete()
         await post_message.delete()
     except Exception as e:
@@ -68,4 +55,3 @@ async def new_post(client: Client, message: Message):
         await message.edit_reply_markup(reply_markup)
     except Exception:
         pass
-
