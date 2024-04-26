@@ -21,7 +21,7 @@ async def channel_post(client: Client, message: Message):
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
         await asyncio.sleep(30)
-        await reply_text.delete()
+       
         await post_message.delete()
         return
 
