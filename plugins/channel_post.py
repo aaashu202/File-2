@@ -21,8 +21,8 @@ async def channel_post(client: Client, message: Message):
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
         return
-        await asyncio.sleep(e.value)
-        await l.delete(20)
+        await asyncio.sleep(20)
+        await l.delete()
         
     converted_id = post_message.id * abs(client.db_channel.id)
     string = f"get-{converted_id}"
